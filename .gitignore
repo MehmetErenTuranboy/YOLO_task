@@ -1,0 +1,53 @@
+# Ignore Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment directories
+venv/
+ENV/
+env/
+.venv/
+yolov5/
+
+
+# Ignore output directory (processed images)
+output/
+
+# Ignore model files (large files, can be tracked separately)
+*.pt
+
+# Ignore image files
+*.jpg
+*.jpeg
+*.png
+*.heic
+
+# Ignore Docker build artifacts
+*.log
+*.out
+*.err
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore node_modules (if applicable, though your project doesn't seem to use Node.js)
+node_modules/
+
+# Ignore compiled shared objects, binaries, etc.
+*.so
+*.dll
+*.dylib
+*.exe
+*.o
+*.a
+
+# Ignore any temporary files
+*.swp
+*~

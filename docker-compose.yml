@@ -1,0 +1,11 @@
+version: '3'
+services:
+  yolov8-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    volumes:
+      - .:/app
+      - ./output:/app/output
