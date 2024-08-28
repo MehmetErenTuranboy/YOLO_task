@@ -35,16 +35,17 @@ def check_status(task_id):
 
 # simulate multiple req
 images_to_process = [
-    {"image_path": "testanimal.jpg", "target_classes": ["zebra"]},
-    {"image_path": "Albert_Einstein_Head.jpg", "target_classes": ["person"]},
-    {"image_path": "testa.jpg", "target_classes": ["person"]},
-    {"image_path": "testb.png", "target_classes": ["person"]},
-    {"image_path": "test.jpg", "target_classes": ["bus"]},
+    {"image_path": "inputs/testanimal.jpg", "target_classes": ["zebra"]},
+    {"image_path": "inputs/Albert_Einstein_Head.jpg", "target_classes": ["person"]},
+    {"image_path": "inputs/testa.jpg", "target_classes": ["person"]},
+    {"image_path": "inputs/testb.png", "target_classes": ["person"]},
+    {"image_path": "inputs/test.jpg", "target_classes": ["bus"]},
 ]
 
 # threads for each request
 threads = []
 for image_data in images_to_process:
+    time.sleep(2)
     thread = Thread(target=submit_request, args=(image_data["image_path"], image_data["target_classes"]))
     thread.start()
     threads.append(thread)

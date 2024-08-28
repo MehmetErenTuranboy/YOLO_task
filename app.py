@@ -17,11 +17,23 @@ def detect_objects():
     image_path = data.get('image_path')
     target_classes = data.get('target_classes', [])
 
+    # invalid image path
     if not image_path or not os.path.exists(image_path):
-        return jsonify({"status": "error", "message": "Invalid image path"}), 404
+        return jsonify({"status": "error", "message": "Invalid image path"}), 400
+    
+    
+    # unsupported media type error
+    valid_extension = ('.jpg', '.jpeg', '.png', '.heic')
+    if not image_path.lower().endswith(valid_extension):
+        return jsonify({"status": "error", "message": "Unsupported image format"}), 415
 
-    task = detect_objects_task.delay(image_path, target_classes)
-    return jsonify({"status": "processing", "task_id": task.id}), 202
+    # try to process task
+    try:
+        task = detect_objects_task.delay(image_path, target_classes)
+        return jsonify({"status": "processing", "task_id": task.id}), 202
+    # catch exception from worker - internal server error
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Failed to start task: {str(e)}"}), 500
 
 
 # Check the status of an object detection task
@@ -32,8 +44,10 @@ def get_result(task_id):
         response = {"status": "pending"}
     elif task.state == 'FAILURE':
         response = {"status": "error", "message": str(task.info)}
-    else:
+    elif task.state == 'SUCCESS':
         response = {"status": task.info.get('status'), "output_path": task.info.get('output_path')}
+    else:
+        response = {"status": "error", "message": f"Unexpected task state: {task.state}"}
 
     return jsonify(response)
 
