@@ -8,7 +8,7 @@ It utilizes Celery for task processing and Redis is utilized as broker.
 
 It provides a REST API to detect specific objects in images.
     -> JSON can be interpreted as
-```JSON
+```bash
     '{
         "image_path": "path to target image", 
         "target_classes": ["person", "dog", etc...]
@@ -43,11 +43,17 @@ docker-compose up --build
 
 ## Stop Containers
 
-To stop all running containers, use:
+To stop and remove all running containers, networks, and volumes, use:
 
 ```bash
-docker stop $(docker ps -q)
+docker-compose down
 ```
+
+If you only want to stop the containers but keep the networks and volumes intact, you can use:
+```bash
+docker-compose stop
+``` 
+
 
 ## Check the Task Status
 After sending a detection request, a task_id will be received. Use it to check the status of the detection process:
