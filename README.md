@@ -7,7 +7,7 @@ Running inside Docker containers with a Flask web server.
 It utilizes Celery for task processing and Redis is utilized as broker.
 
 It provides a REST API to detect specific objects in images.
-    -> Json can be interprated as
+    -> JSON can be interpreted as
 ```JSON
     '{
         "image_path": "path to target image", 
@@ -22,11 +22,16 @@ It provides a REST API to detect specific objects in images.
 
 ## Getting Started
 
-## Clone the Repository
+### Clone the Repository
 ```bash
 git clone git@github.com:MehmetErenTuranboy/YOLO_task.git
 ```
 
+### Instructions
+- In a terminal window build and start the containers.
+- In a terminal window start a celery worker. 
+- Either using provided `script.py` file or provided `POST Requests`send requests to the API. If you want to customize the test cases or script feel free to add new pictures to `input` folder.
+- The output results will be available in output folder.
 
 ### Build and Run Containers
 
@@ -52,6 +57,7 @@ curl http://localhost:5001/result/<task_id>
 ```
 
 ## Run Celery Worker
+Following code starts a celery worker
 ```bash
 docker-compose exec yolov8-api celery -A app.celery worker --loglevel=info
 ```
