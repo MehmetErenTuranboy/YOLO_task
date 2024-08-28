@@ -1,5 +1,11 @@
 version: '3'
 services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    restart: always
+
   yolov8-api:
     build:
       context: .
@@ -9,3 +15,19 @@ services:
     volumes:
       - .:/app
       - ./output:/app/output
+    depends_on:
+      - redis
+    restart: always
+    
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A celery_app.celery worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - yolov8-api
+    restart: always
+

@@ -2,3 +2,5 @@ flask
 torch
 opencv-python-headless
 ultralytics
+celery
+redis
