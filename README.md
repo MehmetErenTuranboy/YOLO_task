@@ -61,11 +61,15 @@ docker-compose exec yolov8-api celery -A app.celery worker --loglevel=info
 Once the containers are running, you can send a POST request to the `/detect` endpoint to detect objects in an image. For example:
 
 ```bash
-curl -X POST http://localhost:5001/detect -H "Content-Type: application/json" -d '{"image_path": "testanimal.jpg", "target_classes": ["zebra"]}'
+curl -X POST http://localhost:5001/detect -H "Content-Type: application/json" -d '{"image_path": "inputs/testanimal.jpg", "target_classes": ["zebra"]}'
 ```
 
 ```bash
-curl -X POST http://localhost:5001/detect -H "Content-Type: application/json" -d '{"image_path": "testb.png", "target_classes": ["person"]}'
+curl -X POST http://localhost:5001/detect -H "Content-Type: application/json" -d '{"image_path": "inputs/testb.png", "target_classes": ["person"]}'
+```
+
+```bash
+curl -X POST http://localhost:5001/detect -H "Content-Type: application/json" -d '{"image_path": "inputs/aristo.jpg", "target_classes": ["person"]}'
 ```
 
 ## Running the YOLO API Container Separately
